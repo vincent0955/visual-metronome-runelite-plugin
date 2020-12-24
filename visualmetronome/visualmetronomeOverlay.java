@@ -9,7 +9,6 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
-
 import javax.inject.Inject;
 import java.awt.*;
 import java.util.EnumSet;
@@ -46,11 +45,10 @@ public class visualmetronomeOverlay extends Overlay {
 
         // Add a line on the overlay for world number
         panelComponent.getChildren().add(LineComponent.builder()
-                .left(Integer.toString(plugin.CurrentTick))
+                .left(plugin.CurrentTick)
                 .leftColor(Color.GREEN)
                 //.right(Integer.toString(client.getWorld()))
                 .build());
-        // Show world type goes here ...
 
         return panelComponent.render(graphics);
 

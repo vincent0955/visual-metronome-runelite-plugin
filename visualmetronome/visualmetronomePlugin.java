@@ -27,7 +27,7 @@ public class visualmetronomePlugin extends Plugin
     @Inject
     private visualmetronomeConfig config;
 
-    public int CurrentTick = 0;
+    public String CurrentTick = "0";
     private boolean ShouldTick = false;
 
     @Provides
@@ -42,11 +42,11 @@ public class visualmetronomePlugin extends Plugin
             return;
         }
         if (config.tickCount() == 1){
-            if (CurrentTick == 0){
-                CurrentTick = 1;
+            if (CurrentTick.equals(config.tickSymbol())){
+                CurrentTick = config.tockSymbol();
             }
             else{
-                CurrentTick = 0;
+                CurrentTick = config.tickSymbol();
             }
 
         }
