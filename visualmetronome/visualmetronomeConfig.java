@@ -4,7 +4,6 @@ import net.runelite.client.config.Alpha;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
-
 import java.awt.*;
 
 @ConfigGroup("visualmetronome")
@@ -38,7 +37,7 @@ public interface visualmetronomeConfig extends Config
 			name = "Symbol used for tick",
 			description = "Configures the symbol displayed on each tick"
 	)
-	default String tickSymbol() { return "yes";}
+	default String tickSymbol() { return "⬤";}
 
 	@ConfigItem(
 			position = 4,
@@ -46,7 +45,7 @@ public interface visualmetronomeConfig extends Config
 			name = "Symbol used for tock",
 			description = "Configures the symbol displayed on each tock"
 	)
-	default String tockSymbol() { return "no"; }
+	default String tockSymbol() { return "⬤"; }
 
 	@Alpha
 	@ConfigItem(

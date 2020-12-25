@@ -7,6 +7,7 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.api.events.GameTick;
+import java.awt.*;
 
 import javax.inject.Inject;
 
@@ -27,8 +28,11 @@ public class visualmetronomePlugin extends Plugin
     @Inject
     private visualmetronomeConfig config;
 
+    //variables
     public String CurrentTick = "0";
-    private boolean ShouldTick = false;
+    public Color CurrentColor = Color.WHITE;
+    public String TitleStatus = "";
+    public String TitleLength = "";
 
     @Provides
     visualmetronomeConfig provideConfig(ConfigManager configManager)
@@ -37,21 +41,41 @@ public class visualmetronomePlugin extends Plugin
     }
 
     @Subscribe
-    public void onGameTick(GameTick tick){
+    public void onGameTick(GameTick tick) {
         if (config.tickCount() == 0) {
             return;
         }
-        if (config.tickCount() == 1){
-            if (CurrentTick.equals(config.tickSymbol())){
+        if (config.tickCount() == 1) {
+            // changes symbols of ticks
+            if (CurrentTick == (config.tickSymbol())) {
                 CurrentTick = config.tockSymbol();
-            }
-            else{
+            } else {
                 CurrentTick = config.tickSymbol();
             }
+            // changes color of ticks
+            if (CurrentTick == (config.tickSymbol())) {
+                CurrentColor = config.getTickColor();
+            }
+            else {
+                CurrentColor = config.getTockColor();
+            }
+            // hides title if showTitle option is off
+            if (!config.showTitle()) {
+                TitleStatus = "";
+            }
+            else {TitleStatus = "Metronome";}
 
+            // finds the longest string for overlay size
+            if ((config.tickSymbol().length() >= TitleStatus.length()) || (config.tockSymbol().length() >= TitleStatus.length())) {
+                if (config.tickSymbol().length() >= config.tockSymbol().length()) {
+                    TitleLength = config.tickSymbol();
+                    }
+                else {TitleLength = config.tockSymbol();}
+                }
+            else {TitleLength = TitleStatus;}
         }
-    }
 
+    }
     @Override
     protected void startUp() throws Exception
     {

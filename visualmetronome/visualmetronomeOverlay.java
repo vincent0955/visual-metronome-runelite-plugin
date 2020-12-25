@@ -1,5 +1,6 @@
 package net.runelite.client.plugins.visualmetronome;
 
+import com.google.inject.Provides;
 import net.runelite.api.Client;
 import net.runelite.api.WorldType;
 import net.runelite.api.events.GameTick;
@@ -30,23 +31,24 @@ public class visualmetronomeOverlay extends Overlay {
     @Override
     public Dimension render(Graphics2D graphics) {
         panelComponent.getChildren().clear();
-        String overlayTitle = "Metronome";
+        String overlayTitle = plugin.TitleStatus;
 
         // Build overlay title
-        panelComponent.getChildren().add(TitleComponent.builder()
-                .text(overlayTitle)
-                .color(Color.white)
-                .build());
-
+        if (config.showTitle()) {
+            panelComponent.getChildren().add(TitleComponent.builder()
+                    .text(overlayTitle)
+                    .color(Color.white)
+                    .build());
+        }
         // Set the size of the overlay (width)
         panelComponent.setPreferredSize(new Dimension(
-                graphics.getFontMetrics().stringWidth(overlayTitle) + 5,
+                graphics.getFontMetrics().stringWidth(plugin.TitleLength) + 5,
                 0));
 
         // Add a line on the overlay for world number
         panelComponent.getChildren().add(LineComponent.builder()
                 .left(plugin.CurrentTick)
-                .leftColor(Color.GREEN)
+                .leftColor(plugin.CurrentColor)
                 //.right(Integer.toString(client.getWorld()))
                 .build());
 
